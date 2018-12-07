@@ -3,15 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Star : MonoBehaviour {
-    public string name;
-    public Vector3 coord;
+    public float magnitude;
     public float brightness;
-    public string consstellationName;
+    public string constellationName;
     public Star neighboors;
-	// Use this for initialization
-	void Start () {
-        Debug.Log("Nom : " + name);
-	}
+
+
+    public void setConstellationName(string cN)
+    {
+        constellationName = cN;
+    }
+
+    public void setMagnitude(float m)
+    {
+        magnitude = m;
+        brightness = 5 - m;
+        Light light = GetComponent<Light>();
+    }
+
+    // Use this for initialization
+    void Start () {
+        Light light = gameObject.GetComponentInChildren<Light>();
+        light.intensity = brightness *10;
+    }
 	
 	// Update is called once per frame
 	void Update () {
