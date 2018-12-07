@@ -6,7 +6,7 @@ public class Star : MonoBehaviour {
     public float magnitude;
     public float brightness;
     public string constellationName;
-    public Star neighboors;
+    public Star neighbors;
 
 
     public void setConstellationName(string cN)

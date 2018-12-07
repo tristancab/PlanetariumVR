@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <cmath>
 #include <iostream>
-#include <sstream> 
+#include <sstream>
 #include "CImg.h"
 using namespace cimg_library;
 
@@ -18,13 +18,13 @@ int main(int argc, char* argv[]) {
 	char filename[250] ;
 
 	if (argc != 2) {
-		printf("Usage: <filename> \n"); 
+		printf("Usage: <filename> \n");
 		exit (1) ;
 	}
 	sscanf (argv[1], "%s", filename) ;
 
 	CImg<float> img ;
-	CImgDisplay disp(1024,1024,"") ;
+	CImgDisplay disp(800,800,"") ;
 	img.load(filename);
 	bool redraw = true ;
 
@@ -32,7 +32,7 @@ int main(int argc, char* argv[]) {
 	int rayon = 10 ;
 
 	std::stringstream ss ;
-	
+
 
 	FILE* fichier = fopen("test.txt", "w+");
 
@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 			printf("x : %f y : %f z : %f \n", x, y, z);
 
 			// Ecriture fichier
-			fprintf(fichier, "%f %f %f magnitude Dragon \n", x,y,z) ;
+			fprintf(fichier, "%f %f %f magnitude Dragon {1, 2} \n", x,y,z) ;
 
 		}
 		disp.wait();
@@ -69,7 +69,7 @@ int main(int argc, char* argv[]) {
 
 	}
 	fclose(fichier);
-	
+
 	return 0;
 
 }
