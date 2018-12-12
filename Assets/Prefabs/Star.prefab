@@ -96,8 +96,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30ed74a288bc905449b104cbffb6ebf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Etoile 1
-  cons: {fileID: 0}
+  magnitude: 0
+  brightness: 0
+  constellationName: 
+  neighbors: []
 --- !u!135 &135285066595418870
 SphereCollider:
   m_ObjectHideFlags: 1

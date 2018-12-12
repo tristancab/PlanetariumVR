@@ -8,26 +8,40 @@ public class Star : MonoBehaviour {
     public string constellationName;
     public List<GameObject> neighbors = new List<GameObject>();
 
-    public void setConstellationName(string cN)
-    {
+
+    // Use this for initialization
+    void Start() {
+        Light light = gameObject.GetComponent<Light>();
+        light.intensity = brightness*1000;
+    }
+
+
+    // Update is called once per frame
+    void Update() {
+
+    }
+
+
+    public void setConstellationName(string cN) {
         constellationName = cN;
     }
 
-    public void setMagnitude(float m)
-    {
+
+    public void setMagnitude(float m) {
         magnitude = m;
-        brightness = 5 - m;
-        Light light = GetComponent<Light>();
+        brightness = 1/m;
     } 
 
-    // Use this for initialization
-    void Start () {
-        Light light = gameObject.GetComponentInChildren<Light>();
-        light.intensity = brightness * 100;
+
+    public bool isFromConstellation(string constName) {
+        if(constellationName == constName) {
+            return true;
+        } else {
+            return false;
+        }
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+
+
+
 }

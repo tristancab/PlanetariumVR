@@ -4,32 +4,32 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class Instantiate : MonoBehaviour
-{
+public class Terrain : MonoBehaviour {
     public GameObject star;
+    public GameObject link;
+    public int multDistance;
+    public string constToDisplay;
+    public float linkSize;
 
 
     // Use this for initialization
-    void Start()
-    {
+    void Start() {
         Initialise();
         Destroy(star);
-        DisplayLink("Grande_Ourse");
     }
+
 
     // Update is called once per frame
-    void Update()
-    {
-
+    void Update() {
+        DisplayLink(constToDisplay);
     }
 
 
-    public void Initialise()
-    {
+    // Init stars from the file test.txt
+    public void Initialise() {
         //Get File
         string path = @"Assets\Data\test.txt";
-        if (File.Exists(path))
-        {
+        if (File.Exists(path)) {
             int cpt = 0;
             string[] lines = File.ReadAllLines(path);
             char separator = ' ';
@@ -38,12 +38,12 @@ public class Instantiate : MonoBehaviour
             string constellation;
             string previousConstellation = "";
             string neighbors;
-            foreach (string line in lines)
-            {
+            //Setup each star
+            foreach (string line in lines) {
                 string[] args = line.Split(separator);
-                x = float.Parse(args[0]);
-                y = float.Parse(args[1]);
-                z = float.Parse(args[2]);
+                x = float.Parse(args[0]) * multDistance;
+                y = float.Parse(args[1]) * multDistance;
+                z = float.Parse(args[2]) * multDistance;
                 magnitude = float.Parse(args[3]);
                 constellation = args[4];
                 if(cpt == 0) {
@@ -53,6 +53,7 @@ public class Instantiate : MonoBehaviour
                     previousConstellation = constellation;
                     cpt = 0;
                 }
+                //Instantiate each star as a gameObject
                 GameObject myStar = Instantiate(star, new Vector3(x, y, z), Quaternion.identity);
                 Star componentStar = myStar.GetComponent<Star>();
                 componentStar.setConstellationName(constellation);
@@ -61,8 +62,8 @@ public class Instantiate : MonoBehaviour
                 cpt++;
             }
             cpt = 0;
-            foreach (string line in lines)
-            {
+            //Find neighbors
+            foreach (string line in lines) {
                 string[] args = line.Split(separator);
                 constellation = args[4];
                 neighbors = args[5];
@@ -86,8 +87,17 @@ public class Instantiate : MonoBehaviour
         }
     }
 
+
+    // Use to display links between Star from the same constellation
     public void DisplayLink(String ConstellationName) {
-        for(int i = 0; i < 7; i++) {
+        GameObject[] stars = GameObject.FindGameObjectsWithTag("Star");
+        int nbStars = 0;
+        foreach(GameObject star in stars) {
+            if (star.GetComponent<Star>().isFromConstellation(ConstellationName)) {
+                nbStars++;
+            }
+        }
+        for(int i = 0; i < nbStars; i++) {
             String firstStarName = ConstellationName + "_" + i;
             GameObject currentStar = GameObject.Find(firstStarName);
             List<GameObject> neighbors = currentStar.GetComponent<Star>().neighbors;
@@ -97,6 +107,8 @@ public class Instantiate : MonoBehaviour
         }
     }
 
+
+    // Use to draw the link between two stars
     public void DrawLink(GameObject s1, GameObject s2) {
         // Les coordonnées du lien sont les coordonnées moyennes des deux étoiles
         float x = s1.transform.position.x/2 + s2.transform.position.x/2;
@@ -106,9 +118,8 @@ public class Instantiate : MonoBehaviour
         float scaleY = (s1.transform.position - s2.transform.position).magnitude / 2 ;
         // On rotate en suivant le vecteur reliant les deux étoiles
         Vector3 rota = (s1.transform.position - s2.transform.position).normalized ;
-        GameObject link0 = GameObject.Find("Link");
-        GameObject link1 = Instantiate(link0, new Vector3(x,y,z), Quaternion.LookRotation(rota));
+        GameObject link1 = Instantiate(link, new Vector3(x,y,z), Quaternion.LookRotation(rota));
         link1.transform.Rotate(90, 0, 0);
-        link1.transform.localScale = new Vector3(0.01f, scaleY, 0.01f);
+        link1.transform.localScale = new Vector3(linkSize, scaleY, linkSize);
     }
 }
