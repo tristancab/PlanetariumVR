@@ -11,7 +11,7 @@ public class Star : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-        Light light = gameObject.GetComponent<Light>();
+        Light light = light = gameObject.GetComponent<Light>();
         light.intensity = brightness*1000;
     }
 
@@ -30,7 +30,19 @@ public class Star : MonoBehaviour {
     public void setMagnitude(float m) {
         magnitude = m;
         brightness = 1/m;
-    } 
+        resize();
+    }
+
+
+    public void resize() {
+        transform.localScale = new Vector3(brightness, brightness, brightness);
+        gameObject.GetComponent<AudioSource>().Play();
+    }
+
+
+    public void upgradeSize() {
+        transform.localScale += new Vector3(0.5F, 0.5F, 0.5F);
+    }
 
 
     public bool isFromConstellation(string constName) {

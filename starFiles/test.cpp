@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
 			printf("x : %f y : %f z : %f \n", x, y, z);
 
 			// Ecriture fichier
-			fprintf(fichier, "%f %f %f magnitude Andromède {1,2} \n", x,y,z) ;
+			fprintf(fichier, "%f %f %f magnitude Persée 1,2 \n", x,y,z) ;
 
 		}
 		disp.wait();
