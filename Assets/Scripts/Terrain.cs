@@ -38,7 +38,6 @@ public class Terrain : MonoBehaviour {
                 Destroy(star);
                 isStarsDisplay = true;
             } 
-
         }
 
         // Display constellation and information of the star selected
@@ -131,13 +130,25 @@ public class Terrain : MonoBehaviour {
                 nbStars++;
             }
         }
-        for(int i = 0; i < nbStars; i++) {
+        List<String[]> drawnCouples = new List<String[]>();
+        bool drawn = false;
+        for (int i = 0; i < nbStars; i++) {
             String firstStarName = ConstellationName + "_" + i;
             GameObject currentStar = GameObject.Find(firstStarName);
             List<GameObject> neighbors = currentStar.GetComponent<Star>().neighbors;
             foreach (GameObject s in neighbors) {
-                DrawLink(currentStar, s);
-    }
+                drawn = false;
+                foreach (String[] couple in drawnCouples) {
+                    if (couple[0].Equals(currentStar.name) && couple[1].Equals(s.name)) {
+                        drawn = true;
+                    }
+                }
+                if (!drawn) {
+                    DrawLink(currentStar, s);
+                    drawnCouples.Add(new String[] { currentStar.name, s.name });
+                    drawnCouples.Add(new String[] { s.name, currentStar.name });
+                }
+            }
         }
     }
 

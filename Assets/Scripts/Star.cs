@@ -7,6 +7,8 @@ public class Star : MonoBehaviour {
     public float brightness;
     public string constellationName;
     public List<GameObject> neighbors = new List<GameObject>();
+    public float sizeCoeff;
+    public float addToSize;
 
 
     // Use this for initialization
@@ -14,7 +16,6 @@ public class Star : MonoBehaviour {
         Light light = light = gameObject.GetComponent<Light>();
         light.intensity = brightness*1000;
     }
-
 
     // Update is called once per frame
     void Update() {
@@ -29,7 +30,7 @@ public class Star : MonoBehaviour {
 
     public void setMagnitude(float m) {
         magnitude = m;
-        brightness = 1/m;
+        brightness = (1/m)* sizeCoeff;
         resize();
     }
 
@@ -41,7 +42,7 @@ public class Star : MonoBehaviour {
 
 
     public void upgradeSize() {
-        transform.localScale += new Vector3(0.5F, 0.5F, 0.5F);
+        transform.localScale += new Vector3(addToSize, addToSize, addToSize);
     }
 
 
