@@ -571,13 +571,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 433e9c8d0293ac4429eaf19bff2b58cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 0}
-  detonationImpactVelocity: 10
-  sizeMultiplier: 1
-  reset: 1
-  resetTimeDelay: 10
-  m_Exploded: 0
-  m_ObjectResetter: {fileID: 0}
 --- !u!114 &869995889
 MonoBehaviour:
   m_ObjectHideFlags: 0
