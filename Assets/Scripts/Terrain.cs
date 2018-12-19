@@ -41,7 +41,7 @@ public class Terrain : MonoBehaviour {
         }
 
         // Display constellation and information of the star selected
-        // TODO: Changer la condition pour afficher les liens quand on intégrera la VR
+        /* TODO: Changer la condition pour afficher les liens quand on intégrera la VR
         if (Input.GetKeyDown(keyToDisplayConst) && isStarsDisplay) {
             GameObject[] stars = GameObject.FindGameObjectsWithTag("Star");
             starToDisplay = stars[(int)UnityEngine.Random.Range(0, stars.Length)];
@@ -54,7 +54,7 @@ public class Terrain : MonoBehaviour {
             // Upgrade star brightness
             UpgradeStar();
 
-        }
+        }*/
     }
 
 
@@ -181,23 +181,38 @@ public class Terrain : MonoBehaviour {
 
 
     // Use to display information of a star selected in the UI
-    public void DisplayInformation() {
+    public void DisplayInformation(GameObject starToCast) {
         panelInterface.SetActive(true);
-        starInformationInterface.GetComponent<Text>().text = starToDisplay.name + "(" + starToDisplay.transform.position.x + ", " + starToDisplay.transform.position.y + ", " + starToDisplay.transform.position.z + ")";
-        starConstellationNameInterface.GetComponent<Text>().text = "Constellation : " + starToDisplay.GetComponent<Star>().constellationName;
-        starMagnitudeInterface.GetComponent<Text>().text = "Magnitude : " + starToDisplay.GetComponent<Star>().magnitude;
+        starInformationInterface.GetComponent<Text>().text = starToCast.name + "(" + starToCast.transform.position.x + ", " + starToCast.transform.position.y + ", " + starToCast.transform.position.z + ")";
+        starConstellationNameInterface.GetComponent<Text>().text = "Constellation : " + starToCast.GetComponent<Star>().constellationName;
+        starMagnitudeInterface.GetComponent<Text>().text = "Magnitude : " + starToCast.GetComponent<Star>().magnitude;
 
     }
 
 
     // Use to upgrade the star selected
-    public void UpgradeStar() {
-        starToDisplay.GetComponent<Star>().upgradeSize();
-        if (starDisplayed == null) {
-            starDisplayed = starToDisplay;
+    public void UpgradeStar(GameObject starCast) {
+        starCast.GetComponent<Star>().upgradeSize();
+        if (starCast == null) {
+            starCast = starToDisplay;
         } else {
-            starDisplayed.GetComponent<Star>().resize();
+            starCast.GetComponent<Star>().resize();
         }
-        starDisplayed = starToDisplay;
+        starCast = starToDisplay;
+    }
+
+    public void castStar(GameObject starToCast) {
+        if (isStarsDisplay)
+        {
+            // Display links
+            string constToDisplay = starToCast.GetComponent<Star>().constellationName;
+            DestroyLink();
+            DisplayLink(constToDisplay);
+            // Display star information in the UI
+            DisplayInformation(starToCast);
+            // Upgrade star brightness
+            UpgradeStar(starToCast);
+        }
+        
     }
 }
