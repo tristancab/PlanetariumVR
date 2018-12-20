@@ -15,7 +15,6 @@ public class Terrain : MonoBehaviour {
     public GameObject starConstellationNameInterface;
     public GameObject starMagnitudeInterface;
 
-    private GameObject starToDisplay;
     private GameObject starDisplayed = null;
     private bool isStarsDisplay = false;
     private string keyToDisplayStars = "s";
@@ -24,37 +23,16 @@ public class Terrain : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-      
+        Initialise();
+        Destroy(star);
+        isStarsDisplay = true;
+
     }
 
 
     // Update is called once per frame
     void Update() {
-        // Display stars
-        // TODO: Changer la condition pour afficher les étoiles quand on intégrera la VR
-        if (Input.GetKeyDown(keyToDisplayStars)) {
-            if (isStarsDisplay == false) {
-                Initialise();
-                Destroy(star);
-                isStarsDisplay = true;
-            } 
-        }
 
-        // Display constellation and information of the star selected
-        /* TODO: Changer la condition pour afficher les liens quand on intégrera la VR
-        if (Input.GetKeyDown(keyToDisplayConst) && isStarsDisplay) {
-            GameObject[] stars = GameObject.FindGameObjectsWithTag("Star");
-            starToDisplay = stars[(int)UnityEngine.Random.Range(0, stars.Length)];
-            // Display links
-            string constToDisplay = starToDisplay.GetComponent<Star>().constellationName;
-            DestroyLink();
-            DisplayLink(constToDisplay);
-            // Display star information in the UI
-            DisplayInformation();
-            // Upgrade star brightness
-            UpgradeStar();
-
-        }*/
     }
 
 
@@ -118,6 +96,8 @@ public class Terrain : MonoBehaviour {
         } else {
             Debug.Log("Pas de fichier");
         }
+
+        
     }
 
 
@@ -183,7 +163,7 @@ public class Terrain : MonoBehaviour {
     // Use to display information of a star selected in the UI
     public void DisplayInformation(GameObject starToCast) {
         panelInterface.SetActive(true);
-        starInformationInterface.GetComponent<Text>().text = starToCast.name + "(" + starToCast.transform.position.x + ", " + starToCast.transform.position.y + ", " + starToCast.transform.position.z + ")";
+        starInformationInterface.GetComponent<Text>().text = starToCast.name;
         starConstellationNameInterface.GetComponent<Text>().text = "Constellation : " + starToCast.GetComponent<Star>().constellationName;
         starMagnitudeInterface.GetComponent<Text>().text = "Magnitude : " + starToCast.GetComponent<Star>().magnitude;
 
@@ -192,18 +172,21 @@ public class Terrain : MonoBehaviour {
 
     // Use to upgrade the star selected
     public void UpgradeStar(GameObject starCast) {
-        starCast.GetComponent<Star>().upgradeSize();
-        if (starCast == null) {
-            starCast = starToDisplay;
-        } else {
-            starCast.GetComponent<Star>().resize();
+        if (starDisplayed != starCast)
+        {
+            starCast.GetComponent<Star>().upgradeSize();
+            if (starDisplayed != null)
+            {
+                starDisplayed.GetComponent<Star>().resize();
+            }
         }
-        starCast = starToDisplay;
+        starDisplayed = starCast;
     }
 
+
+    // Make change in the scene when you cast a star
     public void castStar(GameObject starToCast) {
-        if (isStarsDisplay)
-        {
+        if (isStarsDisplay) {
             // Display links
             string constToDisplay = starToCast.GetComponent<Star>().constellationName;
             DestroyLink();
