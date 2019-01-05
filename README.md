@@ -6,8 +6,11 @@ Plus précisément, l’utilisateur se retrouve dans une prairie dans la nuit, o
 Il peut alors sélectionner une étoile à l’aide de sa main droite. Lorsqu’il sélectionne une étoile, il peut voir la constellation de cette étoile s’illuminer et voir cette étoile en surbrillance. Il obtient alors des informations sur cette étoile et sur la constellation dans une tablette qu’il tient dans sa main droite. 
 
 ## Mode d'emploi
+Pour utiliser l'application, il suffit de télécharger le dossier "Exécutable" et de lancer l'application PlanetariumVR.
 
 ## Vidéo de présentation
-
+Vous trouverez une vidéo de présentation du projet à l'adresse 
+        PlanetariumVR/Demo de PlanetariumVR.mp4
+      
 ## Crédit
 Projet réalisé par Nicolas Cellier et Cabantous Tristan dans le cadre du cours de Réalité Virtuelle en M2 IMAGINA
