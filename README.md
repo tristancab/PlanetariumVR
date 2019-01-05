@@ -12,4 +12,4 @@ Pour utiliser l'application, il suffit de télécharger le dossier Executable et
 Vous trouverez une vidéo de présentation à la racine du projet.
       
 ## Crédit
-Projet réalisé par Nicolas Cellier et Cabantous Tristan dans le cadre du cours de Réalité Virtuelle en M2 IMAGINA
+Projet réalisé par Nicolas Cellier et Tristan Cabantous dans le cadre du cours de Réalité Virtuelle en M2 IMAGINA
